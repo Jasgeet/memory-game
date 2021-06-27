@@ -71,11 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
     let div = document.querySelector('div');
     for(let i = 0; i < 12; i ++) {
 
-        // creating canvas image 12 times, assigning an id attribute to all canvas images: 0 to 11
+        // creating canvas image 12 times, assigning an data-id attribute (not id beause it won't be appropriate 
+        // to use it for this purpose) whih ranges from 0 to 11
+        
+        attribute to all canvas images: 0 to 11
         let canvasImage = document.createElement('img');
         canvasImage.setAttribute('src', 'images/blank.png');
         canvasImage.setAttribute('class', 'canvas-image');
-        canvasImage.setAttribute('id', i);
+        canvasImage.setAttribute('data-id', i);
 
         // Now append each canvas image in div
         div.appendChild(canvasImage);
@@ -85,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // images in array allCanvasImages
     let allCanvasImages = document.querySelectorAll('.canvas-image');
 
-    // canvasImageIds array of size 2 will contain ids of those canvas images which are clicked  
+    // canvasImageIds array of size 2 will contain data-ids of those canvas images which are clicked  
     // and have thier urls changed to foodCard's when clicked, need - so we can keep track of those 
     // canvas images which are clicked and check if they're same foodCards. Counter clickCount lets us  
     // know when 2 clicks are made so we can stop player from making more clicks and check if the two
@@ -96,8 +99,8 @@ document.addEventListener('DOMContentLoaded', () => {
     for(let i = 0; i < 12; i ++) {
 
         // adding click event to every BLANK(not already clicked) canvas image to increment counter clickCount,
-        // save its id in array canvasImageIds and changing it's url to a foodCard's with same index as canvas 
-        // image's id. Note we're mapping canvas image's id with foodCard array's index - a particular object
+        // save its data- id in array canvasImageIds and changing it's url to a foodCard's with same index as canvas 
+        // image's id. Note we're mapping canvas image's data-id with foodCard array's index - a particular object
         allCanvasImages[i].addEventListener('click', () => {
             // necessary to check if we're clicking a BLANK canvas image otherwise 2 problems - 
             // 1. score increases if we're clicking same image twice
@@ -105,7 +108,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // which are already flipped) 
             if(allCanvasImages[i].getAttribute('src') == 'images/blank.png'){
                 clickCount ++;
-                canvasImageIds.push(allCanvasImages[i].getAttribute('id'));
+                canvasImageIds.push(allCanvasImages[i].getAttribute('data-id'));
                 allCanvasImages[i].setAttribute('src', foodCards[i].url);
             }
             if(clickCount == 2) {
@@ -116,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // checking if 2 same foodCards are clicked
     function check() {
-        // fact used id of canvasImage is index of foodCards Array and if 2 same foodCards are clicked
+        // fact used- data-id of canvasImage is index of foodCards Array and if 2 same foodCards are clicked
         // then their urls will also be same
         if(foodCards[canvasImageIds[0]].url == foodCards[canvasImageIds[1]].url) {
             // add 10 score on every match (so max score is 60)
@@ -146,8 +149,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 // reset canvas image of unmatched cards inside setTimeout and not outside as
                 // it gets reset quickly if kept outside as code below setTimeout is executed
                 // simultaneously
-                document.getElementById(id0).setAttribute('src', 'images/blank.png');
-                document.getElementById(id1).setAttribute('src', 'images/blank.png');
+                differentFoodCards = document
+                document.querySelector(`[data-id="${id0}"]`).setAttribute('src', 'images/blank.png');
+                document.querySelector(`[data-id="${id1}"]`).setAttribute('src', 'images/blank.png');
             }, 500);
         }
         // reset counter so we can start counting for next 2, make canvasImageIds array null again
