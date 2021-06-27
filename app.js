@@ -72,7 +72,7 @@ document.addEventListener('DOMContentLoaded', () => {
     for(let i = 0; i < 12; i ++) {
 
         // creating canvas image 12 times, assigning an data-id attribute (not id beause it won't be appropriate 
-        // to use it for this purpose) whih ranges from 0 to 11
+        // to use it for this purpose) which ranges from 0 to 11
         let canvasImage = document.createElement('img');
         canvasImage.setAttribute('src', 'images/blank.png');
         canvasImage.setAttribute('class', 'canvas-image');
